@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from "react";
 
-const APK_PATH = "/downloads/smart-irrigation.apk";
+const APK_URL =
+  "https://github.com/Ikennot04/water-irrigation-Website/releases/download/initial/SmartIrrigation.apk";
 
 const VALVE_SETTINGS = [
   {
@@ -43,25 +44,6 @@ const HARDWARE = [
   ["Power", "12V DC, with a solar panel and battery"],
 ];
 
-function formatBytes(bytes) {
-  if (!Number.isFinite(bytes) || bytes <= 0) return null;
-  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-async function inspectApk() {
-  const response = await fetch(APK_PATH, {
-    method: "HEAD",
-    cache: "no-store",
-  });
-  const type = (response.headers.get("content-type") || "").toLowerCase();
-  if (!response.ok || type.includes("text/html")) {
-    return { state: "missing" };
-  }
-  const length = Number(response.headers.get("content-length"));
-  return { state: "ready", size: formatBytes(length) };
-}
-
 function Valves({ open }) {
   return (
     <span className="valves" aria-hidden="true">
@@ -75,76 +57,14 @@ function Valves({ open }) {
 }
 
 function DownloadPanel() {
-  const [status, setStatus] = useState("loading");
-  const [size, setSize] = useState(null);
-  const [attempt, setAttempt] = useState(0);
-
-  useEffect(() => {
-    let cancelled = false;
-    setStatus("loading");
-    inspectApk()
-      .then((result) => {
-        if (cancelled) return;
-        setStatus(result.state);
-        setSize(result.size || null);
-      })
-      .catch(() => {
-        if (!cancelled) setStatus("error");
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [attempt]);
-
   return (
-    <div className="download-panel" aria-live="polite">
-      {status === "loading" && (
-        <p className="status-line">Checking for the Android file…</p>
-      )}
-
-      {status === "ready" && (
-        <>
-          <p className="status-line">
-            The Android package is ready{size ? `, ${size}` : ""}.
-          </p>
-          <a className="button button-solid" href={APK_PATH} download>
-            Download smart-irrigation.apk
-          </a>
-        </>
-      )}
-
-      {status === "missing" && (
-        <>
-          <p className="status-line">
-            The Android file is not on this site yet. Put{" "}
-            <code>smart-irrigation.apk</code> in <code>public/downloads</code>,
-            then start the site again. The download button shows up after that.
-          </p>
-          <button
-            type="button"
-            className="button button-line"
-            onClick={() => setAttempt((value) => value + 1)}
-          >
-            Check again
-          </button>
-        </>
-      )}
-
-      {status === "error" && (
-        <>
-          <p className="status-line">
-            The site could not reach the download file. Check the connection,
-            then try again.
-          </p>
-          <button
-            type="button"
-            className="button button-line"
-            onClick={() => setAttempt((value) => value + 1)}
-          >
-            Check again
-          </button>
-        </>
-      )}
+    <div className="download-panel">
+      <p className="status-line">
+        The Android package is SmartIrrigation.apk, from the project release.
+      </p>
+      <a className="button button-solid" href={APK_URL}>
+        Download SmartIrrigation.apk
+      </a>
     </div>
   );
 }
@@ -228,7 +148,7 @@ export default function App() {
               pairs over Bluetooth, so the phone does not need mobile data.
             </p>
             <div className="hero-actions">
-              <a className="button button-solid" href="#download">
+              <a className="button button-solid" href={APK_URL}>
                 Download the Android app
               </a>
               <a className="button button-line" href="#system">
@@ -360,7 +280,7 @@ export default function App() {
             <div>
               <h3>On the phone</h3>
               <ol>
-                <li>Download the APK in the browser on the Android phone.</li>
+                <li>Tap Download SmartIrrigation.apk on this page.</li>
                 <li>
                   Open the file. If Android asks, allow installation from that
                   browser.
@@ -374,7 +294,7 @@ export default function App() {
             <div lang="ceb">
               <h3>Para sa mag-uuma</h3>
               <ol>
-                <li>I-download ang APK sa Android phone.</li>
+                <li>Pindota ang Download SmartIrrigation.apk niini nga page.</li>
                 <li>
                   Ablihi ang file. Kung mangutana ang phone, tugoti ang
                   pag-install gikan sa browser.
