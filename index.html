@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Irrigation | Kalubihan, Tabogon, Cebu</title>
+    <meta
+      name="description"
+      content="Android app for the perforated-pipe irrigation system in Kalubihan, Canao-Canao, Tabogon, Cebu. Set flow to off, low, mid, or high from the phone."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      try {
+        var saved = localStorage.getItem("theme");
+        var theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

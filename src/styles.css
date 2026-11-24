@@ -1,0 +1,610 @@
+/*
+  Direction from the app screens and the CE Project 1 proposal.
+  Dial: ENERGY 2 / RHYTHM 2 / MOTION 1.
+  Palette: field green and paper cream from the app, water blue only on flow facts.
+  Fraunces for the research title (a land document). Outfit for controls (the phone UI).
+  Radius: 8px on page buttons, 28px only on the phone figure, so the product reads as a phone.
+  Shadow: none. The phone figure is the one lifted surface.
+  Motif: a row of holes, the perforation, used only as the divider between sections.
+  Motion: color change on hover and focus. No entrance animation.
+*/
+
+:root {
+  --page: #f4f1e6;
+  --ink: #172117;
+  --ink-soft: #314036;
+  --surface: #fffdf8;
+  --line: #5a5348;
+  --green: #0f5c2c;
+  --green-ink: #f7f4ea;
+  --green-press: #0c4a24;
+  --water: #0c4f68;
+  --danger: #7a2e24;
+  --focus: #0c4f68;
+  --header: 4.5rem;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --page: #101610;
+  --ink: #f3f0e6;
+  --ink-soft: #c5d0c4;
+  --surface: #1a241c;
+  --line: #8d9a88;
+  --green: #1e7a3e;
+  --green-ink: #f7f4ea;
+  --green-press: #176432;
+  --water: #9fd0de;
+  --danger: #f0c2ba;
+  --focus: #f3f0e6;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Fraunces, "Iowan Old Style", Palatino, serif;
+  font-weight: 560;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 4vw + 1rem, 4.4rem);
+  margin: 0.35rem 0 1rem;
+}
+
+h2 {
+  font-size: clamp(1.7rem, 2vw + 1rem, 2.6rem);
+  margin: 0 0 0.75rem;
+}
+
+h3 {
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--green);
+}
+
+:root[data-theme="dark"] a {
+  color: var(--water);
+}
+
+:root[data-theme="dark"] .wordmark,
+:root[data-theme="dark"] .site-nav a,
+:root[data-theme="dark"] .site-footer a,
+:root[data-theme="dark"] .button-line,
+:root[data-theme="dark"] .button-line:hover {
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .button-solid,
+:root[data-theme="dark"] .button-solid:hover,
+:root[data-theme="dark"] .button-solid:active {
+  color: var(--green-ink);
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  transform: translateY(-120%);
+  background: var(--green);
+  color: var(--green-ink);
+  padding: 0.6rem 0.9rem;
+  z-index: 5;
+}
+
+.skip:focus {
+  transform: none;
+  color: var(--green-ink);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--header);
+  padding: 0.6rem 1.25rem;
+  background: var(--page);
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 44px;
+  justify-content: center;
+}
+
+.wordmark-name {
+  font-family: Fraunces, Palatino, serif;
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+
+.wordmark-place {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.menu-button,
+.theme-button,
+.button {
+  font: inherit;
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+}
+
+.menu-button,
+.theme-button {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.4rem 0.85rem;
+}
+
+.menu-button:hover,
+.theme-button:hover,
+.button-line:hover {
+  background: var(--surface);
+}
+
+.site-nav {
+  display: none;
+  gap: 0.35rem 1rem;
+  align-items: center;
+}
+
+.site-nav.open {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  padding: 0.75rem 1.25rem 1rem;
+  background: var(--page);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 0.15rem;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+section[id] {
+  scroll-margin-top: calc(var(--header) + 0.75rem);
+}
+
+.hero,
+.band,
+.site-footer {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.hero {
+  display: grid;
+  gap: 1.75rem;
+  padding: 2rem 0 2.5rem;
+}
+
+.place-line {
+  margin: 0;
+  color: var(--water);
+  font-weight: 600;
+}
+
+.lede {
+  font-size: 1.125rem;
+  max-width: 38rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 2px solid var(--green);
+  font-weight: 600;
+}
+
+.button-solid {
+  background: var(--green);
+  color: var(--green-ink);
+}
+
+.button-solid:hover,
+.button-solid:active {
+  background: var(--green-press);
+  border-color: var(--green-press);
+  color: var(--green-ink);
+}
+
+.button-line {
+  background: transparent;
+  color: var(--ink);
+}
+
+.hero-figure {
+  margin: 0;
+}
+
+.hero-figure img {
+  width: 100%;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.hero-figure figcaption {
+  margin-top: 0.7rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.pipe-rule {
+  border: 0;
+  height: 14px;
+  margin: 0.5rem auto;
+  width: min(1120px, calc(100% - 2.5rem));
+  background: radial-gradient(circle, var(--ink) 2.4px, transparent 2.6px) left
+    center / 22px 14px repeat-x;
+}
+
+.band {
+  padding: 2.25rem 0 2.75rem;
+}
+
+.band-intro {
+  max-width: 40rem;
+}
+
+.setting-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.setting-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.setting-list li[data-open="3"] h3 {
+  font-size: 1.7rem;
+}
+
+.setting-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.setting-list p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.valves {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.valve {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.valve-body {
+  width: 12px;
+  height: 4px;
+  background: var(--line);
+}
+
+.valve.open {
+  border-color: var(--green);
+  background: var(--green);
+}
+
+.valve.open .valve-body {
+  background: var(--green-ink);
+}
+
+.soil-block {
+  margin-top: 2.5rem;
+  max-width: 46rem;
+}
+
+.soil-block h3 {
+  margin-bottom: 0.6rem;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 28rem;
+}
+
+caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  font-weight: 600;
+}
+
+.spec-list {
+  margin: 2.5rem 0 0;
+  display: grid;
+  gap: 0;
+}
+
+.spec-list div {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.spec-list div:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+dt {
+  font-weight: 600;
+}
+
+dd {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.phone-band {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.duty-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.duty-list li {
+  padding-left: 0;
+  max-width: 40rem;
+}
+
+.duty-list strong {
+  font-weight: 600;
+}
+
+.download-band {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem 1.75rem;
+  width: min(1120px, calc(100% - 2.5rem));
+}
+
+.download-panel {
+  display: grid;
+  gap: 0.8rem;
+  justify-items: start;
+  margin-bottom: 1.5rem;
+}
+
+.status-line {
+  margin: 0;
+  max-width: 40rem;
+}
+
+code {
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 600;
+}
+
+.install-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.install-grid ol {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.install-grid li + li {
+  margin-top: 0.45rem;
+}
+
+.study-copy {
+  max-width: 42rem;
+}
+
+.byline {
+  color: var(--ink-soft);
+}
+
+.site-footer {
+  padding: 1.5rem 0 2.5rem;
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: var(--ink);
+  margin-right: 1rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (min-width: 720px) {
+  .spec-list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+
+  .spec-list div:nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .install-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .phone-band {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+}
+
+@media (min-width: 960px) {
+  .menu-button {
+    display: none;
+  }
+
+  .site-nav,
+  .site-nav.open {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .hero {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: end;
+    gap: 2.5rem;
+    padding-top: 3rem;
+  }
+
+  .setting-list {
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 0;
+    gap: 1.25rem;
+  }
+
+  .setting-list li {
+    border-bottom: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+  }
+
+  .setting-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
